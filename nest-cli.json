@@ -1,4 +1,30 @@
 {
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src"
+  "sourceRoot": "apps/trending-repos/src",
+  "monorepo": true,
+  "root": "apps/trending-repos",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/trending-repos/tsconfig.app.json"
+  },
+  "projects": {
+    "trending-repos": {
+      "type": "application",
+      "root": "apps/trending-repos",
+      "entryFile": "main",
+      "sourceRoot": "apps/trending-repos/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/trending-repos/tsconfig.app.json"
+      }
+    },
+    "github-repos-fetcher": {
+      "type": "application",
+      "root": "apps/github-repos-fetcher",
+      "entryFile": "main",
+      "sourceRoot": "apps/github-repos-fetcher/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/github-repos-fetcher/tsconfig.app.json"
+      }
+    }
+  }
 }
