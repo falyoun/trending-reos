@@ -2,7 +2,10 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import configuration from './configuration';
 import { GithubReposFetcherEmitter } from './emitters';
-import { GITHUB_REPOS_FETCHER_CLIENT_TOKEN, githubReposFetcherClient } from "@app/shared";
+import {
+  GITHUB_REPOS_FETCHER_CLIENT_TOKEN,
+  githubReposFetcherClient,
+} from '@app/shared';
 
 @Module({
   imports: [
@@ -12,10 +15,7 @@ import { GITHUB_REPOS_FETCHER_CLIENT_TOKEN, githubReposFetcherClient } from "@ap
       expandVariables: true,
     }),
   ],
-  controllers: [
-    GithubReposFetcherEmitter,
-
-  ],
+  controllers: [GithubReposFetcherEmitter],
   providers: [
     {
       provide: GITHUB_REPOS_FETCHER_CLIENT_TOKEN,

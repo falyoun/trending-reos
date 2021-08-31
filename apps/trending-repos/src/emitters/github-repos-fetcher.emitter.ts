@@ -1,4 +1,10 @@
-import { Controller, Get, Inject, Query } from '@nestjs/common';
+import {
+  BadRequestException,
+  Controller,
+  Get,
+  Inject,
+  Query,
+} from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import {
   GITHUB_REPOS_FETCHER_CLIENT_TOKEN,
@@ -16,18 +22,26 @@ export class GithubReposFetcherEmitter {
   ) {}
 
   @Get('/trending-repos')
-  fetchTrendingRepos(@Query() params: FetchQueryParamsType) {
+  fetchTrendingRepos(
+    @Query()
+    params: FetchQueryParamsType,
+  ) {
     return new Promise((resolve, reject) => {
       this.clientProxy
         .send<GithubRepo[]>(FETCH_TRENDING_REPOS_PATTERN_TOKEN, params)
         .subscribe((data) => {
           resolve(data);
         }, reject);
+    }).catch((e) => {
+      throw new BadRequestException(e);
     });
   }
 
   @Get('/trending-repos-stats')
-  fetchTrendingReposStats(@Query() params: FetchQueryParamsType) {
+  fetchTrendingReposStats(
+    @Query()
+    params: FetchQueryParamsType,
+  ) {
     return new Promise((resolve, reject) => {
       this.clientProxy
         .send<{ key: string; value: { count: number; repos: GithubRepo[] } }>(
@@ -37,6 +51,8 @@ export class GithubReposFetcherEmitter {
         .subscribe((data) => {
           resolve(data);
         }, reject);
+    }).catch((e) => {
+      throw new BadRequestException(e);
     });
   }
 }
