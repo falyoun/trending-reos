@@ -19,6 +19,16 @@ In case you want to run specific service, hit the following
 concurrently --kill-others "nest start <first_service_name> --watch" "nest start <second_service_name> --watch"
 ```
 
+
+### Postman usage
+You can use the attached postman collection to test the application as following:
+
+> http://localhost:${port}/trending-repos?sort=${}&order=${}&created=${}
+* This api reflects the base github api to fetch the trending git repos
+
+> http://localhost:${port}/trending-repos-stats?sort=${}&order=${}&created=${}
+* This endpoint returns the languages used by most trending repos on Github
+
 ### Notes
 * Make sure you have `.env` file in the root directory of your project
 * Inside `.env` file make sure you have the following
