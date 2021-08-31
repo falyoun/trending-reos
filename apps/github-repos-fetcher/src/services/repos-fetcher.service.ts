@@ -4,10 +4,9 @@ import axios from 'axios';
 @Injectable()
 export class ReposFetcherService {
   async fetchTrendingRepos(query: FetchQueryParamsType) {
+    const url = `https://api.github.com/search/repositories?q=created:>${query.created}&sort=${query.sort}&order=${query.order}`;
     return await axios
-      .get('https://api.github.com/search/repositories', {
-        params: { ...query },
-      })
+      .get(url)
       .then((response) => {
         if (response && response.data) {
           return response.data;
