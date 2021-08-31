@@ -1,6 +1,9 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { FETCH_TRENDING_REPOS_PATTERN_TOKEN } from '@app/shared';
+import {
+  FETCH_TRENDING_REPOS_PATTERN_STATS_TOKEN,
+  FETCH_TRENDING_REPOS_PATTERN_TOKEN,
+} from '@app/shared';
 import { FetchQueryParamsType } from '@app/shared';
 import { ReposFetcherService } from '../services/repos-fetcher.service';
 
@@ -10,5 +13,9 @@ export class ReposFetcherController {
   @MessagePattern(FETCH_TRENDING_REPOS_PATTERN_TOKEN)
   fetchTrendingRepos(@Payload() query: FetchQueryParamsType) {
     return this.reposFetcherService.fetchTrendingRepos(query);
+  }
+  @MessagePattern(FETCH_TRENDING_REPOS_PATTERN_STATS_TOKEN)
+  fetchTrendingReposStats(@Payload() query: FetchQueryParamsType) {
+    return this.reposFetcherService.getTrendingReposStats(query);
   }
 }

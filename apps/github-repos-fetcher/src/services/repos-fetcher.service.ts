@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { FetchQueryParamsType } from '@app/shared';
 import axios from 'axios';
 import { GithubRepo } from '@app/shared';
+
 @Injectable()
 export class ReposFetcherService {
   async fetchTrendingRepos(query: FetchQueryParamsType): Promise<GithubRepo[]> {
@@ -16,5 +17,38 @@ export class ReposFetcherService {
       .catch((err) => {
         throw err;
       });
+  }
+
+  async getTrendingReposStats(
+    query: FetchQueryParamsType = {
+      created: '2020-08-01',
+      sort: 'desc',
+      order: 'stars',
+    },
+  ) {
+    const repos = await this.fetchTrendingRepos(query).then(
+      (r) => r['items'] || [],
+    );
+
+    if (repos) {
+      const dict = {};
+      for (const repo of repos) {
+        const currentLanguage = repo?.language || 'No language';
+        const alreadyStoredRepo = dict[currentLanguage];
+        if (alreadyStoredRepo) {
+          dict[currentLanguage] = {
+            repos: [...alreadyStoredRepo.repos, repo],
+            count: alreadyStoredRepo.count + 1,
+          };
+        } else {
+          dict[currentLanguage] = {
+            repos: [repo],
+            count: 1,
+          };
+        }
+      }
+      return dict;
+    }
+    return null;
   }
 }

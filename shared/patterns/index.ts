@@ -1,1 +1,2 @@
 export const FETCH_TRENDING_REPOS_PATTERN_TOKEN = 'fetch_trending_repos_pattern_token';
+export const FETCH_TRENDING_REPOS_PATTERN_STATS_TOKEN = 'fetch_trending_repos_pattern_stats_token';
