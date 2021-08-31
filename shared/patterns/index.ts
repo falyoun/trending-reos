@@ -1,0 +1,1 @@
+export const FETCH_TRENDING_REPOS_PATTERN_TOKEN = 'fetch_trending_repos_pattern_token';
